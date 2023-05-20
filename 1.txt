@@ -1,0 +1,195 @@
+Напишите класс User, который будет воплощать пользователя банка.
+У пользователя есть имя, возраст, адрес, номер телефона, баланс на счету.
+
+Реализуйте поведение пользователю:
+Начисление денег на счет.
+Снятие денег со счета.
+Смена имени
+Смена адреса
+Смена номера телефона
+Печать пользователя в удобочитаемом виде включая баланс пользователя
+
+У пользователя не должно быть конструктора по умолчанию, 
+чтобы нельзя было создать невалидного пользователя.
+Все поля пользователя должны быть скрыты.
+
+
+#include <iostream>
+#include <string.h>
+#include <windows.h>
+using namespace std;
+
+class user
+{
+	string name;
+	int age;
+	string address;
+	string phone_number;
+	int balance;
+
+public:
+	user(string p_name, int p_age, string p_address, string p_phone_number, int p_balance)  // конструктор инициализации объекта
+	{
+		name = p_name;
+		age = p_age;
+		address = p_address;
+		phone_number = p_phone_number;
+		balance = p_balance;
+
+		cout << "\n\tПользователь создан.\n\n";
+		system("pause");
+	}
+
+	void print() const                                          // метод печати экземпляра класса
+	{
+		cout << "\n\tДанные пользователя:";
+		cout << "\n\n\tИмя:              " << name << "\n\tВозраст:          " << age << "\n\tАдрес:            " << address;
+		cout << "\n\tНомер телефона:   " << phone_number << "\n\tБаланс:           " << balance;
+	}
+
+	void balance_up()  // метод увеличения баланса
+	{
+		system("CLS");
+		int b;
+		cout << "\n\tНа сколько пополнить баланс? ";
+		cin >> b;
+		balance += b;
+	}
+
+	void balance_down()  // метод уменьшения баланса
+	{
+		system("CLS");
+		int b;
+		cout << "\n\tСколько списать с баланса? ";
+		cin >> b;
+		balance -= b;
+	}
+
+	void change_name()  // метод смены имени
+	{
+		system("CLS");
+		string n;
+		cout << "\n\tВведите новое имя? ";
+		cin >> n;
+		name = n;
+	}
+
+	void change_address()  // метод смены адреса
+	{
+		system("CLS");
+		string a;
+		cout << "\n\tВведите новый адрес? ";
+		cin >> a;
+		address = a;
+	}
+
+	void change_phone_number()  // метод смены номера телефона
+	{
+		system("CLS");
+		string tn;
+		cout << "\n\tВведите новый номер телефона? ";
+		cin >> tn;
+		phone_number = tn;
+	}
+
+};
+
+
+int main()
+{
+	setlocale(0, "");
+
+	string name;
+	int age;
+	string address;
+	string phone_number;
+	int balance;
+
+	cout << "\n\tВведите имя: ";
+	cin >> name;
+	cout << "\n\tВведите возраст: ";
+	cin >> age;
+	cout << "\n\tВведите адрес: ";
+	cin >> address;
+	cout << "\n\tВведите номер телефона: ";
+	cin >> phone_number;
+	cout << "\n\tВведите стартовый баланс: ";
+	cin >> balance;
+
+	user p(name, age, address, phone_number, balance);
+	system("CLS");
+	p.print();
+
+	int change;                // управляющая переменная для switch
+	bool marker = true;        // для выхода из программы
+
+	while (true)
+	{
+		cout << "\n\n\n\n\tКакое действие Вы хотите совершить?\n";
+		cout << "\n\tПополнить баланс? - введите 1";
+		cout << "\n\tСписать средства с баланс? - введите 2";
+		cout << "\n\tСменить имя? - введите 3";
+		cout << "\n\tСменить адрес? - введите 4";
+		cout << "\n\tСменить номер телефона? - введите 5";
+		cout << "\n\tвыход? - введите 6\n";
+		cin >> change;
+
+		while (change < 1 || change > 6)
+		{
+			cout << "\n\n\tНеобходимо ввести значение от 1 до 5!!!\n";
+			cout << "\n\n\n\n\tКакое действие Вы хотите совершить?\n";
+			cout << "\n\tПополнить баланс? - введите 1";
+			cout << "\n\tСписать средства с баланс? - введите 2";
+			cout << "\n\tСменить имя? - введите 3";
+			cout << "\n\tСменить адрес? - введите 4";
+			cout << "\n\tСменить номер телефона? - введите 5";
+			cout << "\n\tвыход? - введите 6\n";
+			cin >> change;
+		}
+
+		switch (change)
+		{
+		case 1:
+			cout << "\n\n";
+			p.balance_up();
+			p.print();
+			break;
+
+		case 2:
+			cout << "\n\n";
+			p.balance_down();
+			p.print();
+			break;
+
+		case 3:
+			cout << "\n\n";
+			p.change_name();
+			p.print();
+			break;
+
+		case 4:
+			cout << "\n\n";
+			p.change_address();
+			p.print();
+			break;
+
+		case 5:
+			cout << "\n\n";
+			p.change_phone_number();
+			p.print();
+			break;
+
+		case 6:
+			marker = false;
+			break;
+		}
+
+		if (marker == false)
+			break;
+	}
+	
+
+
+	cout << "\n\n\n";
+	return 0;
+}
